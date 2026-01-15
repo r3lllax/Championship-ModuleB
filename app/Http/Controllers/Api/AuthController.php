@@ -10,7 +10,13 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login(request $request)
+    /**
+     * Login
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function login(request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required',
@@ -26,8 +32,8 @@ class AuthController extends Controller
             ]);
         }
         return response()->json([
-            'message'=>'Forbidden for you'
-        ],403);
+            'message'=>'Authentication Failed',
+        ],401);
     }
 
     /**
