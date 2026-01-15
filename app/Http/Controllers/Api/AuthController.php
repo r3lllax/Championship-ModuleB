@@ -12,7 +12,22 @@ class AuthController extends Controller
 {
     public function login(request $request)
     {
-        return $request;
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt($request->only('email', 'password'))) {
+            /** @var User $user */
+            $user = auth()->user();
+
+            return response()->json([
+                'token'=>$user->createToken('api')->plainTextToken,
+            ]);
+        }
+        return response()->json([
+            'message'=>'Forbidden for you'
+        ],403);
     }
 
     /**
