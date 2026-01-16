@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('course_id');
-            $table->date('date');
             $table->string('payment_status');
         });
     }

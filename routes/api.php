@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\RecordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::prefix('/courses')->group(function () {
         Route::get('',[CourseController::class,'index']);
         Route::get('/{course}',[CourseController::class,'show']);
+        Route::post('/{course}/buy',[CourseController::class,'store']);
+    });
+    Route::prefix('/orders')->group(function () {
+        Route::get('/',[RecordController::class,'index']);
     });
 });
