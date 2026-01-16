@@ -1,4 +1,4 @@
-services:
+﻿services:
   db:
     image: mysql
     restart: always
@@ -15,7 +15,6 @@ services:
     ports:
       - 8080:80
     environment:
-      - PMA_ARBITRARY=1
       - PMA_HOST=db
     networks:
       - network1

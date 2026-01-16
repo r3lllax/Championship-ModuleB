@@ -32,8 +32,11 @@ class AuthController extends Controller
             ]);
         }
         return response()->json([
-            'message'=>'Authentication Failed',
-        ],401);
+            'message'=>'Invalid data',
+            'errors'=>[
+                'email'=>['Invalid email or password.'],
+            ]
+        ],422);
     }
 
     /**
