@@ -9,6 +9,7 @@ use App\Http\Resources\LessonResource;
 use App\Models\Course;
 use App\Models\Record;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
@@ -37,11 +38,13 @@ class CourseController extends Controller
     }
 
     /**
-     * Buy record
+     * Creating order
+     *
      * @param Course $course
      * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Course $course,request $request)
+    public function store(Course $course,request $request): JsonResponse
     {
         /** @var User $user */
         $user = $request->user();

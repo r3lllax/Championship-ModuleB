@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/{course}/buy',[CourseController::class,'store']);
     });
     Route::prefix('/orders')->group(function () {
+        Route::get('/{record}',[RecordController::class,'unsubscribe']);
         Route::get('/',[RecordController::class,'index']);
     });
 });
