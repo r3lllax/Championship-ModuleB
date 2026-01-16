@@ -16,5 +16,6 @@ Route::post('/registr',[AuthController::class,'registration']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::prefix('/courses')->group(function () {
         Route::get('',[CourseController::class,'index']);
+        Route::get('/{course}',[CourseController::class,'show']);
     });
 });

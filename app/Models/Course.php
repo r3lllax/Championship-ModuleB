@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $start_date
  * @property string $end_date
  * @property string $volume
+ *
+ * @property-read Lesson[] $lessons
  */
 class Course extends Model
 {
@@ -29,4 +32,13 @@ class Course extends Model
         'end_date',
         'volume'
     ];
+
+    /**
+     * Lessons
+     * @return HasMany
+     */
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

@@ -23,4 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message'=>'Forbidden for you',
             ],403);
         });
+        $exceptions->render(function (NotFoundHttpException $e, $request) {
+            return response()->json([
+                'message'=>'Not Found',
+            ],404);
+        });
     })->create();
