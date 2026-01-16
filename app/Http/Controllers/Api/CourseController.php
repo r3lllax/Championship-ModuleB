@@ -45,6 +45,15 @@ class CourseController extends Controller
     {
         /** @var User $user */
         $user = $request->user();
+        $user_courses = $user->records->map(function ($record) {
+            return $record->course_id;
+        });
+
+        if ($user_courses->contains($course->id)){
+            return response()->json([
+                'message'=>'You already have a record for this course'
+            ],403);
+        }
         $record = Record::query()->create([
             'user_id'=>$user->id,
             'course_id'=>$course->id,
