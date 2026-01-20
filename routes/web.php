@@ -1,19 +1,16 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CoursesController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/course-admin')->group(function () {
-    Route::get('/login', function () {
-        return view('login');
-    })->name('login');
-
+    Route::get('/login', [AuthController::class,'index'])->name('login');
     Route::post('/login', [AuthController::class,'login'])->name('login.send');
 
     Route::middleware(['auth:web'])->group(function () {
-        Route::get('/',function (){
-            return view('courses');
-        })->name('courses');
+        Route::get('/',[CoursesController::class,'index'])->name('courses');
+        Route::get('/courses/create',[CoursesController::class,'create'])->name('courses.create');
         Route::get('/logout', [AuthController::class,'logout'])->name('logout');
     });
 
