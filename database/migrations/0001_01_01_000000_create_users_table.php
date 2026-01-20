@@ -37,8 +37,9 @@ return new class extends Migration
         });
 
         DB::table('users')->insert([
-            'email' => 'turkevicaleksandr@gmail.com',
-            'password' => Hash::make('MyPassw0rd!'),
+            'email' => 'admin@edu.com',
+            'password' => Hash::make('course2025'),
+            'role_id' => 1,
         ]);
     }
 
