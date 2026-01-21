@@ -11,6 +11,7 @@ Route::prefix('/course-admin')->group(function () {
     Route::middleware(['auth:web'])->group(function () {
         Route::get('/',[CoursesController::class,'index'])->name('courses');
         Route::get('/courses/create',[CoursesController::class,'create'])->name('courses.create');
+        Route::post('/courses/create',[CoursesController::class,'store'])->name('courses.send');
         Route::get('/logout', [AuthController::class,'logout'])->name('logout');
     });
 

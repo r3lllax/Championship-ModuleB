@@ -93,12 +93,16 @@ th, td {
 }
 
 .pagination {
+    gap: 10px;
+    justify-content: center;
+    background: transparent;
+    display: flex;
+    align-items: center;
     margin-top: 15px;
     text-align: center;
 }
 
 .pagination a {
-    margin: 0 5px;
     text-decoration: none;
     color: #3498db;
 }

@@ -3,59 +3,71 @@
     <div class="card">
         <h2>Создание / редактирование курса</h2>
 
-        <form method="post" enctype="multipart/form-data">
-
-            <div class="form-group error">
+        <form action="{{route('courses.send')}}" method="post" enctype="multipart/form-data" novalidate>
+            @csrf
+            <div class="form-group @error('name') error @enderror">
                 <label>Название курса *</label>
-                <input type="text" maxlength="30">
-                <div class="error-message">
-                    Название обязательно, не более 30 символов
-                </div>
+                <input type="text" maxlength="30" id="title" name="title" value="{{old('title')}}">
+                @error('title')
+                    <div class="error-message">
+                        {{$message}}
+                    </div>
+                @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group @error('description') error @enderror">
                 <label>Описание курса</label>
-                <textarea maxlength="100"></textarea>
+                <textarea id="description" name="description" maxlength="100">{{old('description')}}</textarea>
             </div>
 
-            <div class="form-group error">
+            <div class="form-group @error('duration') error @enderror">
                 <label>Продолжительность (часы) *</label>
-                <input type="number" max="10">
+                <input id="duration" name="duration" type="number" min="1" max="10" value="{{old('duration')}}">
+                @error('duration')
                 <div class="error-message">
-                    Целое число, не более 10
+                    {{$message}}
                 </div>
+                @enderror
             </div>
 
-            <div class="form-group error">
+            <div class="form-group @error('price') error @enderror">
                 <label>Цена *</label>
-                <input type="text" placeholder="100.00">
+                <input id="price" name="price" type="text" placeholder="10.00" value="{{old('price')}}"1>
+                @error('price')
                 <div class="error-message">
-                    Формат xx.xx, минимум 100
+                    {{$message}}
                 </div>
+                @enderror
             </div>
 
-            <div class="form-group error">
+            <div class="form-group @error('start_date') error @enderror">
                 <label>Дата начала *</label>
-                <input type="text" placeholder="дд-мм-гггг">
+                <input id="start_date" name="start_date" type="date" placeholder="дд-мм-гггг" value="{{old('start_date')}}">
+                @error('start_date')
                 <div class="error-message">
-                    Неверный формат даты
+                    {{$message}}
                 </div>
+                @enderror
             </div>
 
-            <div class="form-group error">
+            <div class="form-group @error('end_date') error @enderror">
                 <label>Дата окончания *</label>
-                <input type="text" placeholder="дд-мм-гггг">
+                <input id="end_date" name="end_date" type="date" placeholder="дд-мм-гггг" value="{{old('end_date')}}">
+                @error('end_date')
                 <div class="error-message">
-                    Неверный формат даты
+                    {{$message}}
                 </div>
+                @enderror
             </div>
 
-            <div class="form-group error">
+            <div class="form-group @error('volume') error @enderror">
                 <label>Обложка курса (JPG, до 2000 Кб) *</label>
-                <input type="file" accept="image/jpeg">
+                <input id="volume" name="volume" type="file" accept="image/jpeg" value="{{old('volume')}}">
+                @error('volume')
                 <div class="error-message">
-                    Требуется JPG/JPEG изображение
+                    {{$message}}
                 </div>
+                @enderror
             </div>
 
             <button type="submit">Сохранить курс</button>

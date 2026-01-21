@@ -43,11 +43,12 @@
             </tbody>
         </table>
 
-        <div class="pagination">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-        </div>
+{{--        <div class="pagination">--}}
+{{--            <a href="#">1</a>--}}
+{{--            <a href="#">2</a>--}}
+{{--            <a href="#">3</a>--}}
+            {{$courses->links()}}
+{{--        </div>--}}
     </div>
 @endsection
 @push('styles')
