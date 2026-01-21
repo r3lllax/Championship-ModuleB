@@ -6,7 +6,7 @@
 @extends('layout')
 @section('content')
     <div class="card">
-        <h2>Создание / редактирование курса</h2>
+        <h2>Редактирование курса</h2>
 
         <form action="{{route('courses.sendEdit',$course)}}" method="post" enctype="multipart/form-data" novalidate>
             @csrf

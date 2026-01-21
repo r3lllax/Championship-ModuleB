@@ -31,24 +31,20 @@
                 <tr>
                     <td>{{$course->title}}</td>
                     <td>{{$course->duration}} ч</td>
-                    <td>{{$course->price}}.00</td>
+                    <td>{{mb_strlen($course->price)<=2?$course->price.'.00':$course->price}}</td>
                     <td>{{$course->start_date}} / {{$course->end_date}}</td>
                     <td>
                         <a href="{{route('courses.edit',$course)}}"><button>Редактировать</button></a>
                         <a href="{{route('courses.delete',$course)}}" ><button class="delete">Удалить</button></a>
+                        <a href="{{route('courses.lessons',$course)}}" ><button class="lessons">Уроки</button></a>
+
                     </td>
                 </tr>
             @endforeach
 
             </tbody>
         </table>
-
-{{--        <div class="pagination">--}}
-{{--            <a href="#">1</a>--}}
-{{--            <a href="#">2</a>--}}
-{{--            <a href="#">3</a>--}}
-            {{$courses->links()}}
-{{--        </div>--}}
+        {{$courses->links()}}
     </div>
 @endsection
 @push('styles')

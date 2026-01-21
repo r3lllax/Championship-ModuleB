@@ -12,8 +12,15 @@ use Nette\Utils\Image;
 use Nette\Utils\ImageException;
 use Nette\Utils\UnknownImageFileException;
 
-class CoursesController extends Controller
+class CourseController extends Controller
 {
+    public function lessons(Course $course)
+    {
+        return view('lessons.index',[
+            'lessons' => $course->lessons,
+            'course' => $course
+        ]);
+    }
     public function show(Course $course)
     {
         return view('courses.edit',[

@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\CoursesController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\LessonController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/course-admin')->group(function () {
@@ -9,15 +10,19 @@ Route::prefix('/course-admin')->group(function () {
     Route::post('/login', [AuthController::class,'login'])->name('login.send');
 
     Route::middleware(['auth:web'])->group(function () {
-        Route::get('/',[CoursesController::class,'index'])->name('courses');
+        Route::get('/',[CourseController::class,'index'])->name('courses');
 
-        Route::get('/courses/create',[CoursesController::class,'create'])->name('courses.create');
-        Route::post('/courses/create',[CoursesController::class,'store'])->name('courses.send');
+        Route::get('/courses/create',[CourseController::class,'create'])->name('courses.create');
+        Route::post('/courses/create',[CourseController::class,'store'])->name('courses.send');
 
-        Route::get('/courses/{course}/edit',[CoursesController::class,'show'])->name('courses.edit');
-        Route::post('/courses/{course}/edit',[CoursesController::class,'edit'])->name('courses.sendEdit');
+        Route::get('/courses/{course}/lessons',[CourseController::class,'lessons'])->name('courses.lessons');
 
-        Route::get('/courses/{course}/delete',[CoursesController::class,'delete'])->name('courses.delete');
+        Route::get('/courses/{course}/lessons/create',[LessonController::class,'create'])->name('lessons.create');
+
+        Route::get('/courses/{course}/edit',[CourseController::class,'show'])->name('courses.edit');
+        Route::post('/courses/{course}/edit',[CourseController::class,'edit'])->name('courses.sendEdit');
+
+        Route::get('/courses/{course}/delete',[CourseController::class,'delete'])->name('courses.delete');
         Route::get('/logout', [AuthController::class,'logout'])->name('logout');
     });
 

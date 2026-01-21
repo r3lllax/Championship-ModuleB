@@ -18,7 +18,6 @@
 
         @auth
             <a href="{{route('courses')}}">Курсы</a>
-            <a href="lessons.html">Уроки</a>
             <a href="students.html">Студенты</a>
             <a href="{{route('logout')}}">Выход</a>
         @endauth

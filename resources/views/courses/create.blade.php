@@ -1,11 +1,11 @@
 @extends('layout')
 @section('content')
     <div class="card">
-        <h2>Создание / редактирование курса</h2>
+        <h2>Создание</h2>
 
         <form action="{{route('courses.send')}}" method="post" enctype="multipart/form-data" novalidate>
             @csrf
-            <div class="form-group @error('name') error @enderror">
+            <div class="form-group @error('title') error @enderror">
                 <label>Название курса *</label>
                 <input type="text" maxlength="30" id="title" name="title" value="{{old('title')}}">
                 @error('title')
