@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourseRequest;
+use App\Http\Requests\EditCourseRequest;
 use App\Models\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,25 @@ use Nette\Utils\UnknownImageFileException;
 
 class CoursesController extends Controller
 {
+    public function show(Course $course)
+    {
+        return view('courses.edit',[
+            'course' => $course,
+        ]);
+    }
 
+    /**
+     * Edit course (without volume)
+     * @param EditCourseRequest $request
+     * @param Course $course
+     * @return RedirectResponse
+     */
+    public function edit(EditCourseRequest $request, Course $course): RedirectResponse
+    {
+        $course->fill($request->validated());
+        $course->save();
+        return redirect()->route('courses');
+    }
     public function index()
     {
         $courses = Course::query()->paginate(5);
@@ -42,6 +61,20 @@ class CoursesController extends Controller
     }
 
     /**
+     * Delete course
+     * @param Course $course
+     * @return RedirectResponse
+     */
+    public function delete(Course $course): RedirectResponse
+    {
+        $course->delete();
+        if (file_exists(public_path('volumes/' . $course->volume))) {
+            unlink(public_path('volumes/' . $course->volume));
+        }
+        return redirect()->route('courses');
+    }
+
+    /**
      * Resize image and save, returns path
      * @param $volume
      * @return string
@@ -55,7 +88,7 @@ class CoursesController extends Controller
 
         $volume_name='mpic'.uniqid().'.'.$volume->getClientOriginalName();
         $image->save(public_path('volumes/'.$volume_name));
-        return public_path('volumes/'.$volume_name);
+        return $volume_name;
     }
 
 }

@@ -34,8 +34,8 @@
                     <td>{{$course->price}}.00</td>
                     <td>{{$course->start_date}} / {{$course->end_date}}</td>
                     <td>
-                        <a href="course-form.html"><button>Редактировать</button></a>
-                        <button class="delete">Удалить</button>
+                        <a href="{{route('courses.edit',$course)}}"><button>Редактировать</button></a>
+                        <a href="{{route('courses.delete',$course)}}" ><button class="delete">Удалить</button></a>
                     </td>
                 </tr>
             @endforeach
