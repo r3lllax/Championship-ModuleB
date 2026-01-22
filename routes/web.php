@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\LessonController;
+use App\Http\Controllers\Admin\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/course-admin')->group(function () {
@@ -10,7 +11,11 @@ Route::prefix('/course-admin')->group(function () {
     Route::post('/login', [AuthController::class,'login'])->name('login.send');
 
     Route::middleware(['auth:web'])->group(function () {
-        Route::get('/',[CourseController::class,'index'])->name('courses');
+        Route::get('/courses',[CourseController::class,'index'])->name('courses');
+
+        Route::get('/students',[StudentController::class,'index'])->name('students.index');
+        Route::get('/students/{course}',[StudentController::class,'filter'])->name('students.filter');
+
 
         Route::get('/courses/create',[CourseController::class,'create'])->name('courses.create');
         Route::post('/courses/create',[CourseController::class,'store'])->name('courses.send');

@@ -9,6 +9,7 @@ use App\Http\Resources\LessonResource;
 use App\Models\Course;
 use App\Models\Record;
 use App\Models\User;
+use Carbon\Traits\Date;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -60,6 +61,7 @@ class CourseController extends Controller
         $record = Record::query()->create([
             'user_id'=>$user->id,
             'course_id'=>$course->id,
+            'date'=>Date::now(),
             'payment_status'=>'pending',
         ]);
 

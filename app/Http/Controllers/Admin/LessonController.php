@@ -28,7 +28,9 @@ class LessonController extends Controller
      */
     public function store(CreateLessonRequest $request, Course $course): RedirectResponse
     {
-        $course->lessons()->create([...$request->validated(),'course_id' => $course->id]);
+        if ($course->lessons()->count()<5){
+            $course->lessons()->create([...$request->validated(),'course_id' => $course->id]);
+        }
 
         return redirect()->route('courses.lessons', $course);
     }

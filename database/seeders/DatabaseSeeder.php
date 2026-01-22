@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Course;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Lesson;
+use App\Models\Record;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         Course::factory(40)->create();
         Lesson::factory(400)->create();
+        Record::factory(20)->create();
     }
 }

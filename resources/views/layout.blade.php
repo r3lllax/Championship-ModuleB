@@ -18,7 +18,7 @@
 
         @auth
             <a href="{{route('courses')}}">Курсы</a>
-            <a href="students.html">Студенты</a>
+            <a href="{{route('students.index',['course'=>null])}}">Студенты</a>
             <a href="{{route('logout')}}">Выход</a>
         @endauth
 
