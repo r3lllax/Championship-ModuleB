@@ -24,8 +24,4 @@ class StudentController extends Controller
         ]);
     }
 
-    public function filter(Course $course)
-    {
-        dd($course);
-    }
 }

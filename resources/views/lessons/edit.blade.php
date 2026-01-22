@@ -12,7 +12,7 @@
             @csrf
             <div class="form-group @error('title') error @enderror">
                 <label>Название урока *</label>
-                <input type="text" maxlength="30" id="title" name="title"
+                <input type="text" maxlength="50" id="title" name="title"
                        value="{{old('title')?old('title'):$lesson->title}}">
                 @error('title')
                 <div class="error-message">
@@ -23,7 +23,7 @@
 
             <div class="form-group @error('content') error @enderror">
                 <label>Описание урока *</label>
-                <textarea id="content" name="content" maxlength="100">{{old('content')?old('content'):$lesson->content}}</textarea>
+                <textarea id="content" name="content">{{old('content')?old('content'):$lesson->content}}</textarea>
                 @error('content')
                 <div class="error-message">
                     {{$message}}
@@ -43,7 +43,7 @@
 
             <div class="form-group @error('duration') error @enderror">
                 <label>Продолжительность (часы) *</label>
-                <input id="duration" name="duration" type="number" min="1" max="10"
+                <input id="duration" name="duration" type="number" min="1" max="4"
                        value="{{old('duration')?old('duration'):$lesson->duration}}">
                 @error('duration')
                 <div class="error-message">

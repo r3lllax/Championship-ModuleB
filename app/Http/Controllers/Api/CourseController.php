@@ -9,6 +9,7 @@ use App\Http\Resources\LessonResource;
 use App\Models\Course;
 use App\Models\Record;
 use App\Models\User;
+use Carbon\Carbon;
 use Carbon\Traits\Date;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,13 +29,19 @@ class CourseController extends Controller
         return CoursePaginationResource::make(DB::table('courses')->paginate(10, ['*'], 'page', $page));
     }
 
+
     /**
      * Course`s lessons
      * @param Course $course
-     * @return AnonymousResourceCollection
+     * @return JsonResponse|AnonymousResourceCollection
      */
-    public function show(Course $course): AnonymousResourceCollection
+    public function show(Course $course): JsonResponse|AnonymousResourceCollection
     {
+        if(!$course->AccessToUser(request()->user()->id)){
+            return response()->json([
+                'message'=>'Forbidden for you.'
+            ],403);
+        };
         return LessonResource::collection($course->lessons);
     }
 
@@ -61,7 +68,7 @@ class CourseController extends Controller
         $record = Record::query()->create([
             'user_id'=>$user->id,
             'course_id'=>$course->id,
-            'date'=>Date::now(),
+            'date'=>Carbon::now(),
             'payment_status'=>'pending',
         ]);
 

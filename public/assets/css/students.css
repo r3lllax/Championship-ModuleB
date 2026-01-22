@@ -97,6 +97,9 @@ button.print {
 .status {
     font-weight: bold;
 }
+.disabled{
+    background: rgba(0,0,0,0.6) !important;
+}
 
 .status.pending { color: #f39c12; }
 .status.paid { color: #27ae60; }

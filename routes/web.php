@@ -14,8 +14,6 @@ Route::prefix('/course-admin')->group(function () {
         Route::get('/courses',[CourseController::class,'index'])->name('courses');
 
         Route::get('/students',[StudentController::class,'index'])->name('students.index');
-        Route::get('/students/{course}',[StudentController::class,'filter'])->name('students.filter');
-
 
         Route::get('/courses/create',[CourseController::class,'create'])->name('courses.create');
         Route::post('/courses/create',[CourseController::class,'store'])->name('courses.send');

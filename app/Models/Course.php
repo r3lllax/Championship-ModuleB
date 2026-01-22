@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  *
  * @property-read Lesson[] $lessons
  * @property-read User[] $users
+ * @property-read bool $access
  */
 class Course extends Model
 {
@@ -51,5 +52,15 @@ class Course extends Model
     public function users(): HasManyThrough
     {
         return $this->hasManyThrough(User::class, Record::class,'course_id','id','id','user_id');
+    }
+
+    /**
+     * Can user access to course
+     * @param int $userID
+     * @return bool
+     */
+    public function AccessToUser(int $userID): bool
+    {
+        return (bool)$this->users()->find($userID);
     }
 }
