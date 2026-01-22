@@ -14,7 +14,10 @@ class CreateLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "title"=>"required|string|max:50",
+            "content"=>"required",
+            "video_link"=>"nullable|url",
+            "duration"=>"required|integer|min:1|max:4",
         ];
     }
 }

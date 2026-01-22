@@ -75,6 +75,9 @@ button {
     cursor: pointer;
     margin-right: 5px;
 }
+button:disabled{
+    backdrop-filter: brightness(0.5%);
+}
 
 button.delete {
     background: #e74c3c;

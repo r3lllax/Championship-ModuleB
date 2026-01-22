@@ -18,6 +18,12 @@ Route::prefix('/course-admin')->group(function () {
         Route::get('/courses/{course}/lessons',[CourseController::class,'lessons'])->name('courses.lessons');
 
         Route::get('/courses/{course}/lessons/create',[LessonController::class,'create'])->name('lessons.create');
+        Route::post('/courses/{course}/lessons/create',[LessonController::class,'store'])->name('lessons.store');
+
+        Route::get('/lessons/{lesson}/edit',[LessonController::class,'edit'])->name('lessons.edit');
+        Route::post('/lessons/{lesson}/edit',[LessonController::class,'storeEdit'])->name('lessons.storeEdit');
+        Route::get('/lessons/{lesson}/delete',[LessonController::class,'delete'])->name('lessons.delete');
+
 
         Route::get('/courses/{course}/edit',[CourseController::class,'show'])->name('courses.edit');
         Route::post('/courses/{course}/edit',[CourseController::class,'edit'])->name('courses.sendEdit');

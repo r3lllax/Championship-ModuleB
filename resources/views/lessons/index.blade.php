@@ -29,8 +29,14 @@
                         <td>{{$lesson->duration}}</td>
                         <td><a href="{{$lesson->video_link}}">Ссылка</a></td>
                         <td class="buttons">
-                            <button>Редактировать</button>
-                            <button class="delete">Удалить</button>
+                            <a href="{{route('lessons.edit',$lesson)}}">
+                                <button>Редактировать</button>
+                            </a>
+                            @if($lesson->course->users->count()==0)
+                                <a href="{{route('lessons.delete',$lesson)}}">
+                                    <button class="delete ">Удалить</button>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
