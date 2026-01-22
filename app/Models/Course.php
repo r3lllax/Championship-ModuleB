@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $description
  * @property int $duration
  * @property int $price
- * @property string $start_date
- * @property string $end_date
+ * @property Date $start_date
+ * @property Date $end_date
  * @property string $volume
  *
  * @property-read Lesson[] $lessons

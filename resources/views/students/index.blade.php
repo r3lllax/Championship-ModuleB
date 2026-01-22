@@ -1,4 +1,4 @@
-@php use App\Models\Course;use App\Models\Record;use App\Models\User; @endphp
+@php use App\Models\Course;use App\Models\Record;use App\Models\User;use Carbon\Carbon; @endphp
 @php
     /** @var Record[] $records */
     /** @var Record $record */
@@ -15,7 +15,8 @@
             onchange="window.location.href = 'http://localhost:8000/course-admin/students'+ (this.value?('?course=' + this.value):'')">
             <option value="{{null}}">Все курсы</option>
             @foreach($courses as $course)
-                <option {{request('course')==$course->id?'selected':''}} value="{{$course->id}}">{{$course->title}}</option>
+                <option
+                    {{request('course')==$course->id?'selected':''}} value="{{$course->id}}">{{$course->title}}</option>
             @endforeach
         </select>
 
@@ -23,7 +24,7 @@
             <thead>
             <tr>
                 <th>Email</th>
-{{--                <th>Имя</th>--}}
+                {{--                <th>Имя</th>--}}
                 <th>Курс</th>
                 <th>Дата записи</th>
                 <th>Статус оплаты</th>
@@ -38,8 +39,8 @@
                 @endphp
                 <tr>
                     <td>{{$student->email}}</td>
-{{--                    <td>Иван Иванов</td>--}}
-                    <td>{{$course->title}}</td>
+                    {{--                    <td>Иван Иванов</td>--}}
+                    <td>{{$record->course->title}}</td>
                     <td>{{$record->date}}</td>
                     <td class="status
                         @if($record->payment_status == "success") paid @endif
@@ -47,7 +48,11 @@
                         @if($record->payment_status == "failed") error @endif
                         ">{{$record->payment_status}}</td>
                     <td>
-                        <button class="print">Печать</button>
+                        <button
+                            @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
+                        class="print @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
+                            @if($record->payment_status=="pending" || $record->payment_status=="failed") disabled @endif
+                        ">Печать</button>
                     </td>
                 </tr>
             @endforeach
