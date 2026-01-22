@@ -20,7 +20,7 @@ class StudentController extends Controller
         catch (Exception $e) {
         }
         return view('students.index',[
-            'records'=>$course==null?Record::all():Record::where('course_id',$course)->get(),
+            'records'=>$course==null?Record::query()->paginate(10):Record::where('course_id',$course)->paginate(10),
         ]);
     }
 

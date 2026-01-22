@@ -58,6 +58,7 @@
             @endforeach
             </tbody>
         </table>
+        {{$records->links()}}
     </div>
 @endsection
 @push('styles')
