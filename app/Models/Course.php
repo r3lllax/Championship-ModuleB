@@ -62,6 +62,6 @@ class Course extends Model
      */
     public function AccessToUser(int $userID): bool
     {
-        return (bool)$this->users()->find($userID);
+        return (bool)$this->users()->where('payment_status','success')->find($userID);
     }
 }
