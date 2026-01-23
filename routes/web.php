@@ -4,7 +4,11 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\WebhookController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/payment-webhook/{record}',[WebhookController::class,'index'])->name('payment-webhook.index');
+
 
 Route::prefix('/course-admin')->group(function () {
     Route::get('/login', [AuthController::class,'index'])->name('login');
@@ -26,7 +30,6 @@ Route::prefix('/course-admin')->group(function () {
         Route::get('/lessons/{lesson}/edit',[LessonController::class,'edit'])->name('lessons.edit');
         Route::post('/lessons/{lesson}/edit',[LessonController::class,'storeEdit'])->name('lessons.storeEdit');
         Route::get('/lessons/{lesson}/delete',[LessonController::class,'delete'])->name('lessons.delete');
-
 
         Route::get('/courses/{course}/edit',[CourseController::class,'show'])->name('courses.edit');
         Route::post('/courses/{course}/edit',[CourseController::class,'edit'])->name('courses.sendEdit');

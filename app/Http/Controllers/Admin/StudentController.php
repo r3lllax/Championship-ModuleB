@@ -8,6 +8,10 @@ use App\Models\Record;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http as HttpAlias;
 use League\Uri\Http;
@@ -28,9 +32,16 @@ class StudentController extends Controller
         ]);
     }
 
-    public function certificate(Course $course, User $student)
+
+    /**
+     * Get certificate
+     * @param Course $course
+     * @param User $student
+     * @return View
+     * @throws ConnectionException
+     */
+    public function certificate(Course $course, User $student): View
     {
-        $firstPart = null;
         $response = HttpAlias::withHeaders(['ClientId'=>'SOMEKEY'])->post('http://localhost:8090/create-sertificate',[
             'student_id'=>$student->id,
             'course_id'=>$course->id,
@@ -46,7 +57,7 @@ class StudentController extends Controller
                 'certificate'=>$certificate,
             ]);
         }
-
+        return view('courses.index');
     }
 
 }

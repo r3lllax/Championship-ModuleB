@@ -73,7 +73,7 @@ class CourseController extends Controller
         ]);
 
         return response()->json([
-            'pay_url'=>fake()->url() . "/$record->id"
+            'pay_url'=>'http://localhost:8000/payment-webhook' . "/$record->id"
         ]);
     }
 }
