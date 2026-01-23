@@ -25,6 +25,14 @@ type Response struct {
 	CourseNumber string `json:"course_number"`
 }
 
+type CheckRequest struct {
+	SertificateNumber string `json:"sertikate_number"`
+}
+
+type CheckResponse struct {
+	Status string `json:"status"`
+}
+
 func createCertificateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
@@ -66,8 +74,48 @@ func createCertificateHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+func checkCertificateHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "cannot read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	var req CheckRequest
+	if err := json.Unmarshal(body, &req); err != nil {
+		http.Error(w, "invalid json", http.StatusBadRequest)
+		return
+	}
+
+	if req.SertificateNumber == "" {
+		http.Error(w, "sertikate_number is required", http.StatusBadRequest)
+		return
+	}
+
+	lastChar := req.SertificateNumber[len(req.SertificateNumber)-1]
+
+	status := "failed"
+	if lastChar == '1' {
+		status = "success"
+	}
+
+	resp := CheckResponse{
+		Status: status,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
+}
+
 func main() {
 	http.HandleFunc("/create-sertificate", createCertificateHandler)
+	http.HandleFunc("/check-sertificate", checkCertificateHandler)
 
 	log.Printf("Certification mock server started on :%v", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))

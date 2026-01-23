@@ -134,7 +134,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/courses?page=1",
+					"raw": "{{host}}/courses?page=5",
 					"host": [
 						"{{host}}"
 					],
@@ -144,7 +144,7 @@
 					"query": [
 						{
 							"key": "page",
-							"value": "1"
+							"value": "5"
 						}
 					]
 				}
@@ -174,13 +174,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/courses/35",
+					"raw": "{{host}}/courses/1",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"courses",
-						"35"
+						"1"
 					]
 				}
 			},
@@ -279,13 +279,77 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/orders/35",
+					"raw": "{{host}}/orders/3",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"orders",
-						"35"
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Certificate first 6",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ClientId",
+						"value": "24124",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"student_id\":1,\n    \"course_id\":11\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{certificate-host}}/create-sertificate",
+					"host": [
+						"{{certificate-host}}"
+					],
+					"path": [
+						"create-sertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check certificate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ClientId",
+						"value": "24124",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sertikate_number\":\"A8AA5F776001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{certificate-host}}/check-sertificate",
+					"host": [
+						"{{certificate-host}}"
+					],
+					"path": [
+						"check-sertificate"
 					]
 				}
 			},

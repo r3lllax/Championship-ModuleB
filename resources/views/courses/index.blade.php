@@ -35,7 +35,10 @@
                     <td>{{$course->start_date}} / {{$course->end_date}}</td>
                     <td>
                         <a href="{{route('courses.edit',$course)}}"><button>Редактировать</button></a>
-                        <a href="{{route('courses.delete',$course)}}" ><button class="delete">Удалить</button></a>
+                        @if($course->users()->count()==0)
+                            <a href="{{route('courses.delete',$course)}}" ><button class="delete">Удалить</button></a>
+
+                        @endif
                         <a href="{{route('courses.lessons',$course)}}" ><button class="lessons">Уроки</button></a>
 
                     </td>

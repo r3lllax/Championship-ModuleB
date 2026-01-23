@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\EditCourseRequest;
 use App\Models\Course;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Nette\Utils\Image;
@@ -14,14 +15,23 @@ use Nette\Utils\UnknownImageFileException;
 
 class CourseController extends Controller
 {
-    public function lessons(Course $course)
+    /**
+     * @param Course $course
+     * @return View
+     */
+    public function lessons(Course $course): View
     {
         return view('lessons.index',[
             'lessons' => $course->lessons,
             'course' => $course
         ]);
     }
-    public function show(Course $course)
+
+    /**
+     * @param Course $course
+     * @return View
+     */
+    public function show(Course $course):View
     {
         return view('courses.edit',[
             'course' => $course,
@@ -40,7 +50,11 @@ class CourseController extends Controller
         $course->save();
         return redirect()->route('courses');
     }
-    public function index()
+
+    /**
+     * @return View
+     */
+    public function index():View
     {
         $courses = Course::query()->paginate(5);
         return view('courses.index',[
@@ -48,7 +62,10 @@ class CourseController extends Controller
         ]);
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         return view('courses.create');
     }
