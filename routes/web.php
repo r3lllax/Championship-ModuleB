@@ -31,6 +31,8 @@ Route::prefix('/course-admin')->group(function () {
         Route::get('/courses/{course}/edit',[CourseController::class,'show'])->name('courses.edit');
         Route::post('/courses/{course}/edit',[CourseController::class,'edit'])->name('courses.sendEdit');
 
+        Route::get('/courses/{course}/students/{student}/certificate',[StudentController::class,'certificate'])->name('students.certificate');
+
         Route::get('/courses/{course}/delete',[CourseController::class,'delete'])->name('courses.delete');
         Route::get('/logout', [AuthController::class,'logout'])->name('logout');
     });

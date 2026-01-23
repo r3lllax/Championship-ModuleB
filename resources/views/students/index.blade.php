@@ -48,11 +48,16 @@
                         @if($record->payment_status == "failed") error @endif
                         ">{{$record->payment_status}}</td>
                     <td>
-                        <button
-                            @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
-                        class="print @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
+                        <a href="{{route('students.certificate',[
+    'course'=>$record->course,
+    'student'=>$record->user
+])}}">
+                            <button
+                                @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
+                            class="print @if(Carbon::now()->isBefore(Carbon::parse($record->course->end_date))) disabled @endif
                             @if($record->payment_status=="pending" || $record->payment_status=="failed") disabled @endif
                         ">Печать</button>
+                        </a>
                     </td>
                 </tr>
             @endforeach

@@ -19,9 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
 //        dump($exceptions);
         $exceptions->render(function (AuthenticationException $e, $request) {
-            return response()->json([
-                'message'=>'Forbidden for you',
-            ],403);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message'=>'Forbidden for you',
+                ],403);
+            }
+            return redirect()->guest(route('login'));
         });
         $exceptions->render(function (NotFoundHttpException $e, $request) {
             return response()->json([
